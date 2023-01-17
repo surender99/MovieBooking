@@ -23,6 +23,11 @@ public class Seat {
     String RowName;
     Integer seatNumber;
     Integer capacity;
+    Boolean isAvailable;
     @ManyToOne(fetch = FetchType.LAZY)
     Booking booking;
+
+    public Seat(Integer integer) {
+        id = integer;
+    }
 }

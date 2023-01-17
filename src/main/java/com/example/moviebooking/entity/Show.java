@@ -20,6 +20,8 @@ public class Show {
     int id;
     Date date;
     Time time;
+
+    StratergyType stratergyType;
     @ManyToOne(fetch = FetchType.LAZY)
     private Movie movie;
     @ManyToOne(fetch = FetchType.LAZY)

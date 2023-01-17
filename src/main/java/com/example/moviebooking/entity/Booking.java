@@ -17,12 +17,12 @@ public class Booking {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
+    double amount;
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "booking_id")
     Set<Seat> seats;
     @OneToOne(cascade = CascadeType.ALL)
     Payment payment;
-
     @ManyToOne(fetch = FetchType.LAZY)
     ShowBooking showBooking;
 }
