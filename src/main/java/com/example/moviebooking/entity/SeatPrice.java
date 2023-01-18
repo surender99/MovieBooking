@@ -1,7 +1,9 @@
 package com.example.moviebooking.entity;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
+@Data
 @Entity
 @Table(name = "SEATPRICE")
 public class SeatPrice {

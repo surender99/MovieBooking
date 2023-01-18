@@ -1,10 +1,8 @@
 package com.example.moviebooking.service;
 
-import com.example.moviebooking.config.UserDetailsImpl;
 import com.example.moviebooking.entity.*;
 import com.example.moviebooking.repository.BookingRepository;
 import com.example.moviebooking.repository.SeatPriceRepository;
-import com.example.moviebooking.repository.ShowRepository;
 import com.example.moviebooking.util.DiscountStrategy;
 import com.example.moviebooking.dto.BookingDetails;
 import com.example.moviebooking.util.DiscountStrategy_Afternoon;
@@ -13,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -46,15 +44,18 @@ public class BookingService {
             discountStrategy = new DiscountStrategy_ThirdTicket();
         }
 
+        List<SeatPrice> seatPrices = getSeatPriceByShowId(show.getId());
+        Map<SeatType, Integer> seatPriceMap = seatPrices.stream().collect(Collectors.toMap(obj->obj.getSeatType(), obj->obj.getPrice()));
+
         Booking booking = new Booking();
         booking.setSeats((Set<Seat>) seats);
         booking.setShowBooking(new ShowBooking());
-        booking.setAmount(discountStrategy.calculate(show, bookingDetails, seatPriceRepository));
+        booking.setAmount(discountStrategy.calculate(show, bookingDetails, seatPriceMap));
         bookingRepository.save(booking);
         return booking;
     }
 
-    public int getSeatPriceByShowId(int id) {
-        return seatPriceRepository.get(getSeatPriceByShowId(id));
+    public List<SeatPrice> getSeatPriceByShowId(int id) {
+        return (List<SeatPrice>) seatPriceRepository.findByShowId(id);
     }
 }
