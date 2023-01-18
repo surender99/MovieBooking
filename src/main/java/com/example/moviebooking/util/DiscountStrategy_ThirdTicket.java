@@ -2,12 +2,9 @@ package com.example.moviebooking.util;
 
 import com.example.moviebooking.dto.BookingDetails;
 import com.example.moviebooking.entity.Seat;
-import com.example.moviebooking.entity.SeatPrice;
 import com.example.moviebooking.entity.SeatType;
-import com.example.moviebooking.entity.Show;
-import com.example.moviebooking.repository.SeatPriceRepository;
+import com.example.moviebooking.entity.MovieShow;
 
-import java.sql.Time;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -15,7 +12,7 @@ import java.util.stream.Collectors;
 public class DiscountStrategy_ThirdTicket extends DiscountStrategy{
 
     @Override
-    public double calculate(Show show, BookingDetails bookingDetails, Map<SeatType, Integer> seatPriceMap) {
+    public double calculate(MovieShow movieShow, BookingDetails bookingDetails, Map<SeatType, Integer> seatPriceMap) {
         List<Seat> seats = bookingDetails.getSeatIds().stream()
                 .map(Seat::new)
                 .collect(Collectors.toList());

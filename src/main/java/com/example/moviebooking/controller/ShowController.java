@@ -1,6 +1,6 @@
 package com.example.moviebooking.controller;
 
-import com.example.moviebooking.entity.Show;
+import com.example.moviebooking.entity.MovieShow;
 import com.example.moviebooking.service.ShowService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -11,18 +11,18 @@ public class ShowController {
     private ShowService showService;
 
     @PostMapping("/show/addMovie")
-    public Show addMovie(@RequestBody Show show) {
-        return showService.addShow(show);
+    public MovieShow addMovie(@RequestBody MovieShow movieShow) {
+        return showService.addShow(movieShow);
     }
 
     @GetMapping("/show/get/{id}")
-    public Show getMovie(@RequestBody int id) {
+    public MovieShow getMovie(@RequestBody int id) {
         return showService.getShow(id);
     }
 
     @PutMapping("/show/update")
-    public Show updateMovie(@RequestBody Show show) {
-        return showService.updateShow(show);
+    public MovieShow updateMovie(@RequestBody MovieShow movieShow) {
+        return showService.updateShow(movieShow);
     }
 
     @DeleteMapping("/show/removeShow/{id}")

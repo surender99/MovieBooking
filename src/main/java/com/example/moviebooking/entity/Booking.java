@@ -24,5 +24,5 @@ public class Booking {
     @OneToOne(cascade = CascadeType.ALL)
     Payment payment;
     @ManyToOne(fetch = FetchType.LAZY)
-    ShowBooking showBooking;
+    MovieShow movieShow;
 }

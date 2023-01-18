@@ -22,12 +22,11 @@ public class BookingService {
     DiscountStrategy discountStrategy;
     @Autowired
     private BookingRepository bookingRepository;
-
     @Autowired
     SeatPriceRepository seatPriceRepository;
 
     public Booking book(BookingDetails bookingDetails) {
-        Show show = showService.getShow(bookingDetails.getShowId());
+        MovieShow movieShow = showService.getShow(bookingDetails.getShowId());
         DiscountStrategy discountStrategy = null;
 
         List<Seat> seats = bookingDetails.getSeatIds().stream()
@@ -38,24 +37,23 @@ public class BookingService {
             return null;
         }
 
-        if(show.getStratergyType() == StratergyType.AFTERNOON_30)
+        if(movieShow.getStratergyType() == StratergyType.AFTERNOON_30)
             discountStrategy = new DiscountStrategy_Afternoon();
-        else if (show.getStratergyType() == StratergyType.THIRD_TICKET_50) {
+        else if (movieShow.getStratergyType() == StratergyType.THIRD_TICKET_50) {
             discountStrategy = new DiscountStrategy_ThirdTicket();
         }
 
-        List<SeatPrice> seatPrices = getSeatPriceByShowId(show.getId());
+        List<SeatPrice> seatPrices = getSeatPriceByShowId(movieShow.getId());
         Map<SeatType, Integer> seatPriceMap = seatPrices.stream().collect(Collectors.toMap(obj->obj.getSeatType(), obj->obj.getPrice()));
 
         Booking booking = new Booking();
         booking.setSeats((Set<Seat>) seats);
-        booking.setShowBooking(new ShowBooking());
-        booking.setAmount(discountStrategy.calculate(show, bookingDetails, seatPriceMap));
+        booking.setAmount(discountStrategy.calculate(movieShow, bookingDetails, seatPriceMap));
         bookingRepository.save(booking);
         return booking;
     }
 
     public List<SeatPrice> getSeatPriceByShowId(int id) {
-        return (List<SeatPrice>) seatPriceRepository.findByShowId(id);
+        return (List<SeatPrice>) seatPriceRepository.findByMovieShowId(id);
     }
 }

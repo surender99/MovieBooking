@@ -1,12 +1,10 @@
 package com.example.moviebooking.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
 import java.util.Set;
 
 @Data
@@ -21,5 +19,5 @@ public class Movie {
     private String movieName;
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "movie_id")
-    private Set<Show> shows;
+    private Set<MovieShow> movieShows;
 }

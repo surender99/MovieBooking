@@ -16,5 +16,5 @@ public class SeatPrice {
     int price;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    ShowBooking showBooking;
+    MovieShow movieShow;
 }

@@ -1,11 +1,9 @@
 package com.example.moviebooking.util;
 
 import com.example.moviebooking.dto.BookingDetails;
+import com.example.moviebooking.entity.MovieShow;
 import com.example.moviebooking.entity.Seat;
-import com.example.moviebooking.entity.SeatPrice;
 import com.example.moviebooking.entity.SeatType;
-import com.example.moviebooking.entity.Show;
-import com.example.moviebooking.repository.SeatPriceRepository;
 import lombok.Data;
 
 import java.util.List;
@@ -21,5 +19,5 @@ public abstract class DiscountStrategy {
         return true;
     }
 
-    public abstract double calculate(Show show, BookingDetails bookingDetails, Map<SeatType, Integer> seatPriceMap);
+    public abstract double calculate(MovieShow movieShow, BookingDetails bookingDetails, Map<SeatType, Integer> seatPriceMap);
 }

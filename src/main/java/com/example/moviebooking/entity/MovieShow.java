@@ -13,14 +13,15 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "SHOW")
-public class Show {
+@Table(name = "MOVIESHOW")
+public class MovieShow {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
     Date date;
     Time time;
 
+    @Enumerated(EnumType.STRING)
     StratergyType stratergyType;
     @ManyToOne(fetch = FetchType.LAZY)
     private Movie movie;
@@ -28,6 +29,10 @@ public class Show {
     private Theatre theatre;
     @ManyToOne(fetch = FetchType.LAZY)
     private Screen screen;
-    @OneToOne(cascade = CascadeType.ALL)
-    private ShowBooking showBooking;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "movieshow_id")
+    private Set<Booking> bookings;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "movieshow_id")
+    private Set<SeatPrice> seatPrices;
 }
